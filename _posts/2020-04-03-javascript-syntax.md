@@ -1,6 +1,9 @@
 ---
 title: "基本文法(ES6)"
 excerpt: "Javascriptの基本文法 - ES6"
+toc: true
+toc_sticky: true
+toc_label: "ES6文法"
 
 categories:
   - エンジニア勉強
