@@ -1,7 +1,7 @@
 ---
 title: "Javascript タグ集"
-permalink: /categories/javascript/
-layout: category
+permalink: /tags/javascript/
+layout: tag
 author_profile: true
 taxonomy: javascript
 ---
