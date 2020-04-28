@@ -194,6 +194,7 @@ render
     ︙
     export default connect(mapStateToProps,{アクション名})(コンポーネント名)
     ```
+  - この書き方で、`action`関数は`Store`に向けての処理を`dispatch`することができるようになる
   - `state`管理されているかどうかは`render`で`console.log(this.props)`
 
 ※明確に言語化できていない部分
@@ -222,3 +223,88 @@ connect(3,4)('b');
 [react-reduxのconnect()を図解する - Javaエンジニア、React+Redux+Firebaseでアプリを作る](http://yucatio.hatenablog.com/entry/2018/09/21/225716)
 
 - どうやら`Currying`というES6の書き方があるらしい
+
+# Redux-Thunk
+
+## 役割
+
+- `Action Creator`からAPIのリクエストを送り、レスポンスを受け取る
+- レスポンスの結果を`Action`の`payload`に格納する
+
+## Reduxによるデータロード順
+
+```markdown
+Componentが画面にレンダーされる
+↓
+Componentの`componentDidMount`メソッドが呼ばれる
+↓
+`componentDidMount`から`Action Creator`を呼ぶことで必要なデータをフェッチする
+↓
+`Action Creator`がAPIリクエストを送る
+↓
+レスポンスを受け取り、`Action`の`payload`に格納する
+↓
+`reducer`が`Action`の`type`を見て`state`を返す
+↓
+Componentの`mapStateToProps`を介して`render`関数で扱える状態になる
+```
+
+## 注意点
+
+- `Action Creator`内で非同期処理のレスポンスを直接受け取って使うと以下のようなエラーが発生する
+  ```
+  Error: Actions must be plain objects. Use custom middleware for async actions.
+  ```
+
+- エラー発生の原因：`async/await`を使うことで想定してイなかったオブジェクトが返って来ている
+  - `await`部分で呼び出した関数が生のJavaScriptのオブジェクトを返すと思うかも知れないが、実は`リクエストオブジェクト`を返している
+  - 試しに`async/await`の処理を[babeljs](https://babeljs.io/)の`Try it out`でコピペして見ると想定してなかったオブジェクトが`return`されていることがわかる
+    - 注意点として、`PRESETS`の設定項目はすべて`ON`にした状態で試す
+  - なので、`async/await`を使っても生のJavaScriptオブジェクトは帰って来ず、`Action`で返すべきオブジェクトのタイプが合わない
+
+- 非同期処理を使わずに同期的にデータをレスポンスしようとすると、`Action Creator`がリクエスト投げている間、`Action`は先に`dispatch`で`Reducer`までたどり着いてしまう
+  - そうすると、Componentで表示するデータがないまま、画面が表示される
+
+- そこで、`redux`内でもリクエスト/レスポンスの受送信ができるように手伝うミドルウェアが必要になり、`redux-thunk`がその役割を担う
+
+## ReduxにおいてのMiddleware
+
+- `dispatch`するすべての`Action`で呼び出される
+  - `Action > dispatch > Middleware > Reducers`
+
+- `Action`を止めたり、変えたりする方法で操作が可能になる
+
+- 非同期的な`Action`を使うのが一般的な方法
+
+## `Action Creator`のルールの違い
+
+- `Redux`自体の場合
+  - `Action Creator`は必ず`Action`オブジェクトを返す
+  - `Action`は必ず`type`を持つ
+    - 場合によっては`payload`もつける
+
+- `redux-thunk`の場合
+  - `Action Creator`は`Action`オブジェクトもしくは関数を返す
+    - 関数を返す場合、`関数の呼び出し`もやってくれる
+  - `Action`オブジェクトが返ってきたら必ず`type`を持つべき
+    - 場合によっては`payload`もつけられる
+
+## `redux-thunk`の詳細な動き
+
+```markdown
+＜Action Creator＞
+↓
+オブジェクトもしくは関数の「何か」
+↓
+※`dispatch`
+↓
+＜redux-thunk内＞
+↓
+「何か」
+↓
+関数かどうか？　→　＜関数の場合＞　→　`getState`と`dispatch`を使って関数の呼び出しをする　→　リクエストが終わるまで待つ　→　リクエストが終わったら、手動で`Action`を※`dispatch`する
+↓
+＜関数ではない場合＞
+↓
+Reducers
+```
