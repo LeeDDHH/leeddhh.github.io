@@ -1,0 +1,223 @@
+---
+title: "Redux勉強の記録"
+excerpt: "個人でRedux勉強したときに理解したことを書き足すポスト"
+toc: true
+toc_sticky: true
+toc_label: "Redux"
+
+categories:
+ - エンジニア勉強
+tags:
+  - redux
+  - 基礎
+  - 初心者
+last_modified_at: 2020-04-28T16:25:00
+---
+
+# Redux
+- `state`管理のライブラリ
+- 複雑なアプリケーションを`React`単体より簡単に作れる
+
+## Reduxサイクル
+|Redux|保険会社に例える|
+|-----|-------------|
+|Action Creator|保険の申請を出す|
+|Action|フォーム|
+|dispatch|受付人|
+|Reducer|担当部署|
+|State|保存された部署のデータ|
+
+- 保険会社はお客様からの保険の申請から始まる
+  - `Redux`は`Action Creator`からすべてが始まる
+  - JavaScriptのオブジェクトを作るか返す役割を持つ関数
+- 保険の申請には保険会社にどんなデータを持ってどう変えてほしいのかが書かれている
+  - データをどのように更新したいのか、そしてそのデータは何なのかが`Action`に記載されている
+  - `type`はデータをどう変えたいかについて意図を表す
+    - アクションの種類を一意に識別できる文字列またはシンボル
+  - `payload`は加えたい変更に関するコンテキスト
+    - `Action`の実行に必要な任意のデータ
+- 保険会社の受付人が申請のフォームをコピーして担当の部署に送る
+  - `dispatch`はActionの中のオブジェクトをコピーして`Reducer`に送る
+- 担当部署では、それぞれの部署に合った保険会社のデータを扱う
+  - `Reducer`はActionから送られた`type`と`payload`をもとにデータを更新し、そのデータ群が集まるところに返す
+- 部署で扱ったデータは中央集約管理される場所に集まって管理される
+  - `State`はReducerが作り出したデータをReduxで管理しやすいように中央集約しておいたデータ群
+  - アプリケーション内で扱うデータをすべて管理するため、Reduxが使える形にしたデータの集まり
+  - これにより、各々の`Reducer`で現在の`state`を確認する必要がなくなった
+
+## Action CreatorとAction
+```javascript
+// People dropping off a form (Action Creator)
+const createPolicy = (name, amount) => {
+  // Action Creatorは生のJavaScriptオブジェクトを返す
+  // 生のオブジェクトにtypeとpayloadという中身を入れてActionという参照を使う
+  return { // Action (a form in our analogy)
+    type: 'CREATE_POLICY',
+    payload: {
+      name: name,
+      amount: amount
+    }
+  };
+};
+```
+
+## dispatch
+dispatchはRedux自体に含まれているメソッド
+
+## Reducers
+- `Action Creator`で作られた`Action`から`Reducer`が呼ばれる
+- 何があっても`Reducer`内で既存の`State`を新しい状態に更新しない
+  - `Reducer`内から返すのはいつも新しいオブジェクトにする
+  - `Reducer`の役割に沿った`Action`の`type`があったら、既存の`State`に`Action`の`payload`を加えた新しいオブジェクトを返す
+    ```javascript
+    return [...oldListOfClaims, action.payload];
+    ```
+    [スプレッド構文 - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+
+    [JSのスプレッド構文を理解する - Qiita](https://qiita.com/akisx/items/682a4283c13fe336c547)
+  - `push`を使って既存の`State`に`Action`の`payload`を追加して返すような書き方は厳禁
+  - 既存の`State`から特定の`payload`を取り除く場合も新しいオブジェクトとして　生成して返す
+    ```javascript
+    return oldListOfClaims.filter(claimName => claimName !== action.payload.claimName);
+    ```
+    [Array.prototype.filter() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+- `combineReducers`で指定するキーは`state`で扱うための名称になる
+
+## Store
+- `Redux`を使って`State`を操作するときに、`createStore`と`combineReducers`を使う
+- `combineReducers`では複数のファイルでそれぞれ指定した`Reducer`の設定を1つにするためのメソッド
+  - 複数の`Reducer`において指定された`Action.type`と`Action Creator`から生成されたオブジェクト内の`type`を比較して一致する条件だけに処理が走るようになる
+- `createStore`は`combineReducers`で1つに束ねた`Reducer`をもとに1つのオブジェクトとして`State`管理を管理する
+
+## State
+- `Store`された`state`に直接アクセスしてデータを変更することはできない
+- `Action Creator`から生成されたオブジェクト（`Action`）を通してはじめてデータの変更ができる
+
+# Redux + JavaScript
+[A Pen by vue+typescript勉強中カモ](https://codepen.io/camomile_cafe/pen/zYvNZNE?editors=0010)
+
+# React-Redux
+## 構造
+```markdown
+- src
+|- actions    // Action Creatorに関するファイル
+|- components // Component
+|- reducers   // Reducer
+index.js      // ReactとReduxの両方を準備する。Componentで開始時に表示するファイルを指定する
+```
+
+## 初期化時の呼び出し順
+```markdown
+index.js
+reducers
+↓
+Provider
+↓
+App
+↓
+Component
+connect
+↓
+mapStateToProps(Storeのstateを初期化時に適用する)
+↓
+mapDispatchToProps
+↓
+App
+Component
+↓
+render
+```
+
+[Reduxの処理の流れ - Qiita](https://qiita.com/takahiron/items/9c2156a8efbd2ea98246)
+
+## ファイル内での定義
+- `index.js`
+  - `Store`を生成して使うため、`redux`から`createStore`を使う
+  - `Store`の`state`を`react`のDOMの中でも使えるように`Provider`を使う
+  - `state`をどのように変化させるかの定義をした`reducer`を初期化するため、インポートする
+  ```javascript
+  import React from 'react'
+  import ReactDOM from 'react-dom'
+
+  import { createStore } from "redux";
+  import { Provider } from "react-redux";
+
+  import reducer from "./reducers";
+
+  import App from './components/App'
+
+  // Storeを生成し、Reducerと紐づくことでstateの更新ができるようになる
+  // Storeのstateはstore.dispatch({action:content})といった形で更新できる
+  const store = createStore(reducer);
+
+  ReactDOM.render(
+    <Provider store={store}>// Reactのルートからstoreを管理する
+      <App />
+    </Provider>,
+    document.getElementById("root")
+  );
+  ```
+
+- `reducers/index.js`
+  - 複数の`reducer`の定義をまとめる`combineReducers`を`redux`からインポートする
+    - `combineReducers`では、`state`内で扱うためのキー名とそのキーの値となるオブジェクトを返す`reducer`を指定する
+    ```javascript
+    export default combineReducers({
+      キー1: reducer1
+      キー2: reducer2
+    });
+    ```
+  - ルートComponentで`Store`生成時に`Reducer`を初期化する
+
+- `actions/index.js`
+  - `state`に変化を与えるための関数`Action Creator`
+    - 名前付きエクスポート（`named export`）で関数名を決める
+  - 変化させるタイプやその値の規格を定義したオブジェクト`Action`
+    - `type`と`payload`のセットにする
+
+- `components/App.js`
+  - 制御する`Component`をインポートする
+
+- `redux`で`state`を使うComponent内
+  - 基本的に`export default connect(mapStateToProps,{アクション名})(コンポーネント名)`という形式で扱う
+  - `state`を受け取る場合
+    ```javascript
+    // 以下の形式でStateからComponentのpropsへ代える
+    const mapStateToProps = (state) => {
+      return { Component内で扱うpropsのキー: state.State内で扱っていたキー }
+    }
+    ```
+  - `Action`をComponent内で扱う場合
+    ```javascript
+    import アクション名 from 'アクションが定義されたファイルのパス'
+    ︙
+    export default connect(mapStateToProps,{アクション名})(コンポーネント名)
+    ```
+  - `state`管理されているかどうかは`render`で`console.log(this.props)`
+
+※明確に言語化できていない部分
+- Component内で`Action Creator`がトリガーされた時、どうやって`Reducer`が反応する/できるのか
+- おそらく、`Action Creator`がトリガーされ、`Action`をリターンすると`combineReducers`に登録された`キー：reducer`の順で処理が走るだろうと予想する
+
+## `connect()()`の呼び出しの謎
+```javascript
+function connect(a=1,b=2) {
+  console.log(a);
+  this.arg1 = a;
+  this.arg2 = b;
+
+  //connect()で無名関数をリターンする
+  return function(component='a') {
+    console.log(arg1,arg2,component);
+  }
+}
+
+//connect()()でリターンされた無名関数を実行する
+connect(3,4)('b');
+```
+
+[connect()()の動きをconsoleで見る](https://codepen.io/camomile_cafe/pen/wvKdJzR?editors=0010)
+
+[react-reduxのconnect()を図解する - Javaエンジニア、React+Redux+Firebaseでアプリを作る](http://yucatio.hatenablog.com/entry/2018/09/21/225716)
+
+- どうやら`Currying`というES6の書き方があるらしい
