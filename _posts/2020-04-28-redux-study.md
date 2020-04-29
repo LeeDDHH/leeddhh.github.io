@@ -448,3 +448,26 @@ Reducers
 
   - [reduxのcombineReducerソースコード](https://github.com/reduxjs/redux/blob/master/src/combineReducers.ts)を見る限り、`reducer`内に引数で「渡ってきた`state`」と「現在の`state`」を比較して`state`の更新の有無を判定している。
   つまり、`reducer`内で`state`を直接変えてしまうと`state`に更新がかかるため、思わぬ動作を引き起こす可能性がある
+
+# reducerで安全にstateを更新する
+- 基本的に新しいオブジェクトや配列を返すことで安全に更新できる
+
+```javascript
+//オブジェクト
+//変更
+{...state, 変更するキー:'変更する値'}
+//追加
+{...state, 追加するキー:'追加する値'}
+//削除
+{...state, 削除するキー: undefined}
+もしくは
+_.omit(state,'削除するキー') // Lodash Documentを参考
+
+//配列
+//変更
+state.map(elem => elem === 変更対象の値 ? 変更後の値 : elem)
+//追加
+[...state, 追加する値]
+//削除
+state.filter(elem => elem !== 削除する値)
+```
