@@ -343,6 +343,19 @@ connect(3,4)('b');
           }
         }
         ```
+        [redux-thunk/index.js at master · reduxjs/redux-thunk](https://github.com/reduxjs/redux-thunk/blob/master/src/index.js)
+
+        [Thunks in Redux: The Basics - Fullstack Academy - Medium](https://medium.com/fullstack-academy/thunks-in-redux-the-basics-85e538a3fe60)
+
+        [도대체 무슨 '척'?](https://daveceddia.com/what-is-a-thunk/)
+
+        [redux-thunk](https://velog.io/@bigbrothershin/redux-thunk)
+
+        [Thunk - Wikipedia](https://en.wikipedia.org/wiki/Thunk)
+
+        [리덕스(Redux)란 무엇인가? | 텅 빈 충만의 블로그](https://voidsatisfaction.github.io/2017/02/24/what-is-redux/)
+
+        [리덕스 미들웨어, 그리고 비동기 작업 (외부데이터 연동) | VELOPERT.LOG](https://velopert.com/3401)
 
 ## Reduxによるデータロード順
 
