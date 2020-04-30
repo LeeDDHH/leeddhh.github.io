@@ -11,7 +11,7 @@ tags:
   - redux
   - 基礎
   - 初心者
-last_modified_at: 2020-04-29T17:12:00
+last_modified_at: 2020-04-30T15:51:00
 ---
 
 # Redux
@@ -279,6 +279,70 @@ connect(3,4)('b');
 
 - `Action Creator`からAPIのリクエストを送り、レスポンスを受け取る
 - レスポンスの結果を`Action`の`payload`に格納する
+
+## 書き方
+
+- `index.js`
+
+  - `Store`を生成して使うため、`redux`から`createStore`を使う
+
+  - `Store`の`state`を`react`のDOMの中でも使えるように`Provider`を使う
+
+  - `state`をどのように変化させるかの定義をした`reducer`を初期化するため、インポートする
+
+  - `reducer`に`Action`を送る前に非同期処理をするミドルウェアをミドルウェアを追加しておくために`applyMiddleware`を使う
+
+  - `Action Creator`から`Action`を関数として返しても遅延して実行するよう、`redux-thunk`を使う
+    ```javascript
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+
+    import { createStore, applyMiddleware } from "redux";
+    import { Provider } from "react-redux";
+    import thunk from 'redux-thunk';
+
+    import reducer from "./reducers";
+
+    import App from './components/App'
+
+    // Storeを生成し、Reducerと紐づくことでstateの更新ができるようになる
+    // Storeのstateはstore.dispatch({action:content})といった形で更新できる
+    // Storeを生成する際に、thunkミドルウェアを使うようにする
+    const store = createStore(reducers, applyMiddleware(thunk));
+
+    ReactDOM.render(
+      <Provider store={store}>// Reactのルートからstoreを管理する
+        <App />
+      </Provider>,
+      document.getElementById("root")
+    );
+    ```
+
+- `Action Creatorを記載したファイル`
+
+  - `Action Creator`の処理を手動的に`dispatch`することで非同期処理が使える
+
+  - `redux-thunk`の`createThunkMiddleware`に`dispatch`する
+
+    - `Action Creator`の返り値が生のオブジェクトなら通常通り、`reducer`に処理を渡す
+
+    - `Action Creator`の返り値が関数ならその関数を実行する
+
+      - 関数実行後、非同期処理が走り、`dispatch`で生のオブジェクトを返すようにすると通常通り、`reducer`に処理を渡す
+        ```javascript
+        export const asyncAction = () => {
+          return async (dispatch) => {
+            // 非同期処理をしてactionのpayloadを生成
+            const response = await someAsyncFunc();
+
+            // 手動でdispatchし、redux-thunkへactionを送る
+            dispatch({
+              type: "ASYNC_ACTION",
+              payload: response
+            });
+          }
+        }
+        ```
 
 ## Reduxによるデータロード順
 
