@@ -170,28 +170,28 @@ render
   - `Store`の`state`を`react`のDOMの中でも使えるように`Provider`を使う
 
   - `state`をどのように変化させるかの定義をした`reducer`を初期化するため、インポートする
-  ```javascript
-  import React from 'react'
-  import ReactDOM from 'react-dom'
+    ```javascript
+    import React from 'react'
+    import ReactDOM from 'react-dom'
 
-  import { createStore } from "redux";
-  import { Provider } from "react-redux";
+    import { createStore } from "redux";
+    import { Provider } from "react-redux";
 
-  import reducer from "./reducers";
+    import reducer from "./reducers";
 
-  import App from './components/App'
+    import App from './components/App'
 
-  // Storeを生成し、Reducerと紐づくことでstateの更新ができるようになる
-  // Storeのstateはstore.dispatch({action:content})といった形で更新できる
-  const store = createStore(reducer);
+    // Storeを生成し、Reducerと紐づくことでstateの更新ができるようになる
+    // Storeのstateはstore.dispatch({action:content})といった形で更新できる
+    const store = createStore(reducer);
 
-  ReactDOM.render(
-    <Provider store={store}>// Reactのルートからstoreを管理する
-      <App />
-    </Provider>,
-    document.getElementById("root")
-  );
-  ```
+    ReactDOM.render(
+      <Provider store={store}>// Reactのルートからstoreを管理する
+        <App />
+      </Provider>,
+      document.getElementById("root")
+    );
+    ```
 
 - `reducers/index.js`
 
@@ -343,19 +343,20 @@ connect(3,4)('b');
           }
         }
         ```
-        [redux-thunk/index.js at master · reduxjs/redux-thunk](https://github.com/reduxjs/redux-thunk/blob/master/src/index.js)
 
-        [Thunks in Redux: The Basics - Fullstack Academy - Medium](https://medium.com/fullstack-academy/thunks-in-redux-the-basics-85e538a3fe60)
+  [redux-thunk/index.js at master · reduxjs/redux-thunk](https://github.com/reduxjs/redux-thunk/blob/master/src/index.js)
 
-        [도대체 무슨 '척'?](https://daveceddia.com/what-is-a-thunk/)
+  [Thunks in Redux: The Basics - Fullstack Academy - Medium](https://medium.com/fullstack-academy/thunks-in-redux-the-basics-85e538a3fe60)
 
-        [redux-thunk](https://velog.io/@bigbrothershin/redux-thunk)
+  [도대체 무슨 '척'?](https://daveceddia.com/what-is-a-thunk/)
 
-        [Thunk - Wikipedia](https://en.wikipedia.org/wiki/Thunk)
+  [redux-thunk](https://velog.io/@bigbrothershin/redux-thunk)
 
-        [리덕스(Redux)란 무엇인가? | 텅 빈 충만의 블로그](https://voidsatisfaction.github.io/2017/02/24/what-is-redux/)
+  [Thunk - Wikipedia](https://en.wikipedia.org/wiki/Thunk)
 
-        [리덕스 미들웨어, 그리고 비동기 작업 (외부데이터 연동) | VELOPERT.LOG](https://velopert.com/3401)
+  [리덕스(Redux)란 무엇인가? \| 텅 빈 충만의 블로그](https://voidsatisfaction.github.io/2017/02/24/what-is-redux/)
+
+  [리덕스 미들웨어, 그리고 비동기 작업 (외부데이터 연동) \| VELOPERT.LOG](https://velopert.com/3401)
 
 ## Reduxによるデータロード順
 
