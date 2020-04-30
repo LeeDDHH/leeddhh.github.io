@@ -1,9 +1,9 @@
 ---
-title: "基本文法(ES6)"
-excerpt: "Javascriptの基本文法 - ES6"
+title: "JavaScript勉強の記録"
+excerpt: "個人でJavaScript勉強したときに理解したことを書き足すポスト"
 toc: true
 toc_sticky: true
-toc_label: "ES6文法"
+toc_label: "JavaScript"
 
 categories:
   - エンジニア勉強
