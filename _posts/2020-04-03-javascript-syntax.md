@@ -219,6 +219,10 @@ var foo = function con(x) {
 foo(1)(2); // 3
 ```
 
+[JavaScript - ES6の文法でわからないところが｜teratail](https://teratail.com/questions/71006)
+
+[[JavaScript] Vuex の中での foo => bar => foo + bar みたいなアロー関数2回続く場合の表記に慣れる。 « きんくまデザイン](http://www.kuma-de.com/blog/2017-07-06/7329)
+
 ## thisの挙動
 
 ### ES5
