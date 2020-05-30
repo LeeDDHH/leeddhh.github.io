@@ -63,7 +63,7 @@ google:
   search_engine_id       : # YOUR_SEARCH_ENGINE_ID
   instant_search         : # false (default), true
 # SEO Related
-google_site_verification :
+google_site_verification : 3s2g1guKMf34dz5BuB0pWaOGNUgmwv6-Zgaos9xvOZM
 bing_site_verification   :
 yandex_site_verification :
 naver_site_verification  :
@@ -97,7 +97,7 @@ author:
   avatar           : "/assets/images/kamo.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "都内の渡り鳥"  #"I am an **amazing** person."
   location         : "東京"
-  email            : 
+  email            :
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
