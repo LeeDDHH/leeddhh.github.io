@@ -59,7 +59,7 @@ CLI上で以下のような感じで動きます
 ただそれだけのはずでしたが、最初からリポジトリを生成してつくると意外と分からないことが多かったのでそれをまとめてみます。
 
 リポジトリの構成はこんな感じで作りました。
-```
+```css
 .
 ├── node_modules
 ├── package-lock.json
@@ -74,7 +74,7 @@ CLI上で以下のような感じで動きます
 ## `package.json`
 `npm init` で生成し、ちょっと中身を変えたファイルが以下です。
 
-```
+```json
 {
   "name": "leeddhh",
   "version": "1.0.0",
@@ -149,7 +149,7 @@ CLI上で以下のような感じで動きます
 ## `Node.js`の書き方
 元のリポジトリにあった要素を別ファイルとして管理させるため、`export` を使おうとしたら `Array is not a function` というエラーに出くわしました。
 
-普段、reactを書いていたくせでついつい `export default 関数名` みたいに書いていたことから調べてみたら、公式ページでは以下のように書いてありました。
+普段、Reactを書いていたくせでついつい `export default 関数名` みたいに書いていたことから調べてみたら、公式ページでは以下のように書いてありました。
 
 > If the module is not simply a list of named exports, but rather contains a unique function or object export like module.exports = function () { ... }
 
