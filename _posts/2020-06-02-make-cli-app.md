@@ -16,7 +16,7 @@ last_modified_at: 2020-06-03T09:40:00
 # はじめに
 以前、Reactを触りはじめたら作りたいと思っていたCLIアプリがありました。
 
-<div style="width: 500px;"><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://qiita.com/akameco/items/e0af9e3cdf1cdb6fca61" data-iframely-url="//cdn.iframe.ly/hYNlCyl?iframe=card-small"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script></div><br>
+<div class="block-link"><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://qiita.com/akameco/items/e0af9e3cdf1cdb6fca61" data-iframely-url="//cdn.iframe.ly/hYNlCyl?iframe=card-small"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script></div><br>
 
 ちょうど転職してからReactを触りはじめて1か月が経とうとしていたこともあり、重い腰を上げて作って見ようとした結果、やっと作れるようになりました。
 
@@ -43,11 +43,11 @@ last_modified_at: 2020-06-03T09:40:00
 # 作ったものの紹介
 リポジトリは以下です。
 
-<div style="width: 500px;"><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://github.com/LeeDDHH/leeddhh" data-iframely-url="//cdn.iframe.ly/GlWqsJL"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script></div><br>
+<div class="block-link"><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://github.com/LeeDDHH/leeddhh" data-iframely-url="//cdn.iframe.ly/GlWqsJL"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script></div><br>
 
 CLI上で以下のような感じで動きます
 
-<div style="width: 500px;"><img src='{{ site.url }}{{ site.baseurl }}/assets/images/cli-movie.gif'></div><br>
+<div class="block-link"><img src='{{ site.url }}{{ site.baseurl }}/assets/images/cli-movie.gif'></div><br>
 
 アプリのソースには自己紹介文、紹介したいリンクとその名前だけ自分用のものに設定すれば基本的には画像のように動きます
 
@@ -176,6 +176,6 @@ CLI上で以下のような感じで動きます
 
 よかったら以下のリポジトリから皆さんも自己紹介用のCLIアプリを作ってみてください！
 
-<div style="width: 500px;"><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://github.com/LeeDDHH/cli-app-template" data-iframely-url="//cdn.iframe.ly/3FpupEt"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script></div><br>
+<div class="block-link"><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://github.com/LeeDDHH/cli-app-template" data-iframely-url="//cdn.iframe.ly/3FpupEt"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script></div><br>
 
 P.S. CLIアプリを作る上で疑問点/不明点の受け付けは [Twitter](http://twitter.com/camomile_cafe) もしくは [Mail](mailto:niche3600@gmail.com) にてお願いいたします。
