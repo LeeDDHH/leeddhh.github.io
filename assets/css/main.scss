@@ -20,6 +20,10 @@
     width: 500px
 }
 
+.block-big-img {
+    width: calc(100%)
+}
+
 @media screen and (max-width:480px) {
     .block-link {
         width: 300px
