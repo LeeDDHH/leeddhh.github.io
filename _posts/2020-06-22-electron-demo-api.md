@@ -1,5 +1,5 @@
 ---
-title: "ElectronのAPIを試したいときに使ってみるデモアプリについて"
+title: "Electronを試す前に使ってみると良いデモアプリの紹介"
 excerpt: "Electronのちょっとした機能を試してみたいときにちょうどいいアプリを紹介"
 toc: true
 toc_sticky: true
