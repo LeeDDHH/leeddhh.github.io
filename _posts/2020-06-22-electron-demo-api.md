@@ -1,6 +1,8 @@
 ---
 title: "Electronを試す前に使ってみると良いデモアプリの紹介"
 excerpt: "Electronのちょっとした機能を試してみたいときにちょうどいいアプリを紹介"
+header:
+  og_image: /assets/images/electron-demo-api-logo.png
 toc: true
 toc_sticky: true
 toc_label: "APIデモアプリ"
