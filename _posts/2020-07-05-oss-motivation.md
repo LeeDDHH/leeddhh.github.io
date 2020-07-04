@@ -51,3 +51,7 @@ last_modified_at: 2020-07-05T10:00:00
 英語から日本語へと日本語から韓国語への翻訳を初稿の初稿レベルで書いた程度でしたが、振り返ってみれば**翻訳経験あり**の状態であったため、少なくとも翻訳の経験なしでOSS翻訳をする方々よりは書けるかもしれないと自信が湧いてきて始めて見る勇気が出ました。
 
 <hr size="65px;">
+
+OSS翻訳の経験談とこれから翻訳活動をやる人に向けてのTipsに関しては以下のリンクから確認いただけます。<br>
+
+<div class="block-link"><div class="iframely-embed"><div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a href="https://leeddhh.github.io/%25E3%2582%25A8%25E3%2583%25B3%25E3%2582%25B8%25E3%2583%258B%25E3%2582%25A2%25E5%258B%2589%25E5%25BC%25B7/oss-pr/" data-iframely-url="//cdn.iframe.ly/2oJ2iCx?iframe=card-small"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script></div><br>
