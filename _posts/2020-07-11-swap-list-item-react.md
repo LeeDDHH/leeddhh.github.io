@@ -1,5 +1,5 @@
 ---
-title: "JavaScriptでリストの要素を前後の要素と入れ替えてみる"
+title: "React内でリストの要素を前後の要素と入れ替えてみる"
 excerpt: "配列要素の前後交換をReact内でやってみました。"
 header:
   og_image: /assets/images/jouhou_koukan.png
